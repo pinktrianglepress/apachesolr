@@ -988,7 +988,10 @@ function apachesolr_index_batch_index_entities($env_id, &$context) {
       // Get the $solr object
       $solr = apachesolr_get_solr($env_id);
       // If there is no server available, don't continue.
-      if (!$solr->ping()) {
+      
+      // Modified by Brad Baker 6/24/2013 to make Apache Solr module honor the apachesolr_ping_timeout setting  
+      //if (!$solr->ping()) {
+      if (!$solr->ping(variable_get('apachesolr_ping_timeout', 4))) {
         throw new Exception(t('No Solr instance available during indexing.'));
       }
     }
