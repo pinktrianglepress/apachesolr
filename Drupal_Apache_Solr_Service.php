@@ -304,7 +304,9 @@ class DrupalApacheSolrService implements DrupalApacheSolrServiceInterface {
    */
   public function clearCache() {
     // Don't clear cached data if the server is unavailable.
-    if (@$this->ping()) {
+    //if (@$this->ping()) {
+    // Make Apache Solr module honor the apachesolr_ping_timeout setting
+    if (@$this->ping(variable_get('apachesolr_ping_timeout', 4))) {
       $this->_clearCache();
     }
     else {
