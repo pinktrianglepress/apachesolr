@@ -1872,11 +1872,7 @@ function apachesolr_entity_update($entity, $type) {
         if (is_callable($status_callback)) {
           // by placing $status in front we prevent calling any other callback
           // after one status callback returned false
-          if($type == 'node'){
-            $status = $status && $entity->status;
-          }else{
-            $status = $status && $status_callback($id, $type);
-          }
+          $status = $status && $status_callback($id, $type);
         }
       }
     }
